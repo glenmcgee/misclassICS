@@ -6,7 +6,7 @@
 
 ## May 27, 2018 EDIT: ## random slopes (for binary, cluster-level covariate) now permitted
 ## sigma and gamma are translated into vectors of length K (to acommodate random slopes)
-runLOCAL=FALSE
+runLOCAL=TRUE
 ## random slopes parametrization: sigma0 is the sd of intercepts among unexposed, sigma1 among exposed
 
 require(gaussquad)
