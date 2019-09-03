@@ -13,7 +13,7 @@
 #library(dplyr)
 library(xtable)
 ## load clean data
-source("~/code/1Mis_clean_data.R")
+source("../Data Analysis/1Mis_clean_data.R")
 
 
 ######################
@@ -63,7 +63,7 @@ colnames(tabNk) <- c("N_k","No. G1s","% ADHD","% DES","Valid % ADHD","Valid % DE
 tabNk[is.na(tabNk)] <- "--"
 xtable(tabNk,include.rownames = FALSE)
 xtable(tabNk[,-(6:8)],include.rownames = FALSE)
-write.table(tabNk,"~/results/Mis_tabNk.txt")
+write.table(tabNk,"Mis_tabNk.txt")
 
 
 ###################
@@ -94,7 +94,7 @@ colnames(tabNk) <- c("N_k","No. G1s","% ADHD","% DES","Valid % ADHD","Valid % DE
 tabNk[is.na(tabNk)] <- "--"
 xtable(tabNk,include.rownames = FALSE)
 xtable(tabNk[,-(6:8)],include.rownames = FALSE)
-write.table(tabNk,"~/results/Mis_tabNk5.txt")
+write.table(tabNk,"Mis_tabNk5.txt")
 
 
 ################################################
@@ -178,11 +178,11 @@ nmnames <- c("DES Yes","DES No",
 ## table of overall/mothers/nonmothers (cell percentages)
 nonmothers_tab <- nm_table("N0",cats=nmcats,names=nmnames,df=datG1,digits=1)
 xtable(nonmothers_tab,digits=c(0,0,1,0,1,0,1))
-write.table(nonmothers_tab,file="~/results/Mis_nonmothers_tab.txt")
+write.table(nonmothers_tab,file="Mis_nonmothers_tab.txt")
 ## table of overall/mothers/nonmothers (rate of emptiness) ## this one is probably more meaninful if emptiness is the focus
 nonmothers_rate_tab <- nm_table("N0",cats=nmcats,names=nmnames,df=datG1,digits=1,rate=TRUE)
 xtable(nonmothers_rate_tab,digits=c(0,0,0,1,0,1))
-write.table(nonmothers_rate_tab,file="~/results/Mis_nonmothers_rate_tab.txt")
+write.table(nonmothers_rate_tab,file="Mis_nonmothers_rate_tab.txt")
 
 
 ###########################
@@ -245,17 +245,17 @@ DESnames <- c("Nk=0","1","2","3","4+",
 ## DES table (G1 level)
 DES_tab <- EDA_table("desqx1",cats=DEScats,names=DESnames,df=datG1,G1s=TRUE,digits=2)
 xtable(DES_tab)
-write.table(DES_tab,file="~/results/Mis_DES_tab.txt")
+write.table(DES_tab,file="Mis_DES_tab.txt")
 MDES_tab <- EDA_table("mdes1",cats=DEScats,names=DESnames,df=datG1,G1s=TRUE,digits=2)
 xtable(MDES_tab)
-write.table(MDES_tab,file="~/results/Mis_MDES_tab.txt")
+write.table(MDES_tab,file="Mis_MDES_tab.txt")
 
 ## ADHD table (G2 level)
 ADHDcats <- c("desqx1","mdes1",DEScats)
 ADHDnames <- c("DES","MDES",DESnames)
 ADHD_tab <- EDA_table("adhd",cats=ADHDcats,names=ADHDnames,df=dat[dat$N0==0,],G1s=FALSE,digits=2)
 xtable(ADHD_tab)
-write.table(ADHD_tab,file="~/results/Mis_ADHD_tab.txt")
+write.table(ADHD_tab,file="Mis_ADHD_tab.txt")
 
 
 ####################################
@@ -291,135 +291,3 @@ colnames(results_Nkreg) <- c("RR","CI","OR","CI")
 #rowname(results_Nkreg) <-
 xtable(results_Nkreg)
 
-
-#
-# ######## G1 level plot
-# plot_ADHD_Nk <- ggplot(datG1,aes(x=totalkids,y=adhd,color=DES))+
-#   geom_point()+
-#   xlab('Nk') +ylab ('Effect Estimate')
-#
-#
-#
-
-
-
-
-
-
-
-
-
-# ### Table 1
-# vars_binary <- colnames(datG1)[!colnames(datG1)%in%c("id","adhd","yob89","yob89sq","totalkids")]
-# tab1_G1 <- NULL
-# for(var in vars_binary){
-#   tab1_G1 <- rbind(tab1_G1,c(sum(datG1[,var],na.rm=TRUE),100*mean(datG1[,var],na.rm=TRUE)))
-# }
-# tab1_G1 <- rbind(c(nrow(datG1),100),tab1_G1)
-# rownames(tab1_G1) <- c("Total",vars_binary)
-# colnames(tab1_G1) <- c("K","%")
-#
-# write.table(tab1_G1,"/udd/n2glm/results/tab1_G1.txt")
-
-
-# ##########################################################
-# ## G2 level data table 1
-# tab1_G2 <- dat %>% group_by(totalkids) %>% summarise(K=length(unique(id)),
-#                                                   Out_pct=100*mean(adhd),
-#                                                   Exp_pct=100*mean(desqx1))
-# colnames(tab1_G2) <- c("Nk","No. G1s","% ADHD","% DES")
-#
-# write.table(tab1_G2,"/udd/n2glm/results/tab1_G2.txt")
-
-#
-#
-#
-# ##### EDA for DES
-# DES_K <- c(sum(datG1$desqx1),
-#             sum(datG1$desqx1[datG1$N0==1]),
-#             sum(datG1$desqx1[datG1$N1==1]),
-#             sum(datG1$desqx1[datG1$N2==1]),
-#             sum(datG1$desqx1[datG1$N3==1]),
-#             sum(datG1$desqx1[datG1$N4plus==1]),
-#             sum(datG1$desqx1[datG1$yob89_4650==1]),
-#             sum(datG1$desqx1[datG1$yob89_5155==1]),
-#             sum(datG1$desqx1[datG1$yob89_5660==1]),
-#             sum(datG1$desqx1[datG1$yob89_61plus==1]),
-#            sum(datG1$desqx1[datG1$scand89==1]),
-#            sum(datG1$desqx1[datG1$ocauc89==1]),
-#            sum(datG1$desqx1[datG1$afric89==1]),
-#            sum(datG1$desqx1[datG1$hisp89==1]),
-#            sum(datG1$desqx1[datG1$asian89==1]),
-#            sum(datG1$desqx1[datG1$oanc89==1]),
-#            sum(datG1$desqx1[datG1$momed2==1]),
-#            sum(datG1$desqx1[datG1$momed3==1]),
-#            sum(datG1$desqx1[datG1$momed4==1]),
-#            sum(datG1$desqx1[datG1$momed5==1]),
-#            sum(datG1$desqx1[datG1$momed6==1]),
-#            sum(datG1$desqx1[datG1$daded2==1]),
-#            sum(datG1$desqx1[datG1$daded3==1]),
-#            sum(datG1$desqx1[datG1$daded4==1]),
-#            sum(datG1$desqx1[datG1$daded5==1]),
-#            sum(datG1$desqx1[datG1$daded6==1]),
-#            sum(datG1$desqx1[datG1$msmk2==1]),
-#            sum(datG1$desqx1[datG1$msmk3==1]),
-#            sum(datG1$desqx1[datG1$phome05==1]),
-#
-#
-#           )
-# tab_DES <- cbind(DES_K,DES_K/nrow(datG1))
-# colnames(tab_DES) <- c("No. G1s","%")
-# rownames(tab_DES) <- c("Overall",
-#                        "Nk=0","1","2","3","4+",
-#                        "YOB 45-60","51-55","56-60","61+",
-#                        "Scand","Ocauc","Afric","Hisp","Asian","Oanc",
-#                        "mprof05","mexec05","msale05","mmech05","mmach05","mserv05","mlabo05","mfarm05","mmili05","mdk05",
-#                        "fprof05","fexec05","fsale05","fmech05","fmach05","fserv05","flabo05","ffarm05","fmili05","fdk05",
-#                        "MomEd 2","MomEd 3","MomEd 4 ","MomEd 5 ","MomEd 6 ",
-#                        "DadEd 2","DadEd 3","DadEd 4 ","DadEd 5 ","DadEd 6 ",
-#                        "MSMK 2","MSMK 3","PHOME")
-#
-#
-#
-#
-#
-#
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## tibble method
-# datG1 %>% select(-c(id,adhd)) %>%
-#   gather(desqx1:msmk3,key="var",value="value") %>%
-#   group_by(var) %>%
-#   summarise_all(funs(K = sum,pctK = 100*mean))
-#                                                                                                                          pctK = 100*mean))
-#
-# datG1 %>% select(-c(id,adhd)) %>% summarise_each(funs(K = sum,
-#                                                     pctK = 100*mean))
-
-
-
-# dim(dat)
-# [1] 106198     45
-
-# names(dat)
-# [1] "id"        "desqx1"    "yob89"     "scand89"   "ocauc89"   "afric89"
-# [7] "hisp89"    "asian89"   "oanc89"    "mprof05"   "mexec05"   "msale05"
-# [13] "mmech05"   "mmach05"   "mserv05"   "mlabo05"   "mfarm05"   "mmili05"
-# [19] "mdk05"     "fprof05"   "fexec05"   "fsale05"   "fmech05"   "fmach05"
-# [25] "fserv05"   "flabo05"   "ffarm05"   "fmili05"   "fdk05"     "phome05"
-# [31] "adhd"      "totalkids" "yob89sq"   "momed2"    "momed3"    "momed4"
-# [37] "momed5"    "momed6"    "daded2"    "daded3"    "daded4"    "daded5"
-# [43] "daded6"    "msmk2"     "msmk3"
