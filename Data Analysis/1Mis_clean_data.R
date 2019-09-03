@@ -2,7 +2,7 @@
 ##    LOAD NHS DATA    ##
 #########################
 ## 05/07/2019
-## Needs to be updated after consulting with Marianthi about data coding issues
+## 
 
 ## load packages
 library(tidyr)
@@ -11,7 +11,7 @@ library(dplyr)
 ######################
 ## Load and clean data
 
-dat <- read.csv("~/data/GlenData.csv")
+dat <- read.csv("Data.csv") ## DATA NOT PUBLICLY AVAILABLE
 
 ## clean coding
 dat$validID <- 0
