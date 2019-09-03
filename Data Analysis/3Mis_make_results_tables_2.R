@@ -12,8 +12,8 @@ dig <- 2
 
 ## load data
 ## Server:
-ests <- data.frame(read.table(file="~/results/Mis_ests_2.txt",header=T,row.names=1))
-SEs <- data.frame(read.table(file="~/results/Mis_SEs_2.txt",header=T,row.names=1))
+ests <- data.frame(read.table(file="Mis_ests_2.txt",header=T,row.names=1))
+SEs <- data.frame(read.table(file="Mis_SEs_2.txt",header=T,row.names=1))
 
 
 ## create intervals
