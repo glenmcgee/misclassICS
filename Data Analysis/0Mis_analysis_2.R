@@ -28,13 +28,13 @@ library(JMMICSpack)
 library(ResourceSelection) ## for hosmer lemeshow
 expit <- function(x)exp(x)/(1+exp(x))
 #library(MISclassICSpack) ## called by "MISclassICS_C.R"
-source("~/code/JMMICS.R")
-source("~/code/MISclassICS_C.R") ## for observed likelihood
-source("~/code/MISclassICS.R") ## for EEE
+source("../Functions/JMMICS.R")
+source("../Functions/MISclassICS_C.R") ## for observed likelihood
+source("../Functions/MISclassICS.R") ## for EEE
 ## load and clean data
 #source("~/code/1Mis_clean_data.R") ## called by "2Mis_EDA.R"
 ## prelim tables
-source("~/code/2Mis_EDA.R")
+source("../Data Analysis/2Mis_EDA.R")
 
 
 ##################################
@@ -199,8 +199,8 @@ colnames(ests) <- colnames(SEs) <- c("IEE-Naive","WEE-Naive","JMM-Naive",
                                      "IEE-EEE-Simple","WEE-EEE-Simple","JMM-ObsLik" )
 
 ## save output
-write.table(ests,file="~/results/Mis_ests_2.txt")
-write.table(SEs,file="~/results/Mis_SEs_2.txt")
+write.table(ests,file="Mis_ests_2.txt")
+write.table(SEs,file="Mis_SEs_2.txt")
 
 
 
