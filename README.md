@@ -3,6 +3,20 @@
 Code to reproduce methodology and simulations from "On the Interplay Between Exposure Misclassification and Informative Cluster Size". 
 
 ## Simulations
+#### sim1_2019.R,...sim12_2019.R
+
+#### sim1_2019.R,...sim12_2019.R
+
+#### simulate_sizedist_2019.R
+
+#### inducedICS_2019.R
+
+#### make_results_tables.R
+
+#### sim1INDUCED_2019.R,...,sim3INDUCED_2019.R
+
+#### sim6COND_2019.R
+
 
 ## Functions
 Generic functions to generate data, fit models, and correct exposure misclassification.
