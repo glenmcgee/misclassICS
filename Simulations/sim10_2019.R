@@ -11,7 +11,7 @@ scenario <-  "G25_BothDec"     #"G0_Fixed" "G0_BothDec" "G0_BothInc" "G0_SensDec
                             #"GN25_Fixed" "GN25_BothDec" "GN25_BothInc" "GN25_SensDec"
                             #"G25_Fixed" "G25_BothDec" "G25_BothInc" "G25_SensDec"
 
-runLOCAL=FALSE ## set to TRUE to run locally ## FALSE is on cluster
+runLOCAL=TRUE ## set to TRUE to run locally ## FALSE is on cluster
 
 #####################
 ## setting parameters
