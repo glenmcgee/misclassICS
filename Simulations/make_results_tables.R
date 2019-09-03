@@ -23,8 +23,8 @@ sigma1 <- 1.5 ## SD of rand eff for X=1
 
 
 ## set path
-path <- "~/Harvard/Research/Measurement Error in Multigenerational Studies/Code/Simulations/Results/"
-outpath <- "~/Harvard/Research/Measurement Error in Multigenerational Studies/Code/Simulations/Plots/"
+path <- "../Simulations/Results/"
+outpath <- "../Simulations/Plots/"
 
 ## colors
 wes_red <- wes_palette(n=5, name="Darjeeling")[1]
