@@ -4,16 +4,22 @@ Code to reproduce methodology and simulations from "On the Interplay Between Exp
 
 ## Simulations
 #### sim1_2019.R,...sim12_2019.R
-
-#### simulate_sizedist_2019.R
-
-#### inducedICS_2019.R
-
-#### make_results_tables.R
+Run main simulations in each of 12 scenarios. In simulations 1 to 4, gamma=0; in simulations 5 to 8, gamma=-0.25; in simulations 9 to 12, gamma=0.25.In simulations 1,5, and 9, sensitivity and specificity are fixed with respect to cluster size; in simulations 2,6, and 10, sensitivity and specificity decrease in cluster size; in simulations 3,7, and 11, sensitivity and specificity increase in cluster size; in simulations 4,8, and 12, only sensitivity decreases in cluster size.
 
 #### sim1INDUCED_2019.R,...,sim3INDUCED_2019.R
+Run simulations to show induced informativeness. In each, gamma=0, alpha_1=-1 and \beta_1=1. Sensitivity/specificity are fixed, decrease, and increase with respect to cluster size in simulations 1,2 and 3, respectively.
 
 #### sim6COND_2019.R
+Run simulation with conditional model specification (gamma=-0.25; both sensitivity/specificity decrease with cluster size).
+
+#### inducedICS_2019.R
+Run simulation to create plots showing bias due to induced informativeness.
+
+#### simulate_sizedist_2019.R
+Simulate populations of one million clusters and summarize characteristics for each of twelve scenarios.
+
+#### make_results_tables.R
+Summarize results of simulations.
 
 
 ## Functions
@@ -32,6 +38,7 @@ R functions to fit EEE method.
 Wrapper functions for fitting observed likelihood method.
 #### genMIS.R
 Function to add exposure misclassification to a dataset (generated from genICS.R).
+
 
 ## Data Analysis
 Code for analysis of NHSII data (study of ADHD/Diethylstilbestrol). Note: data not publicly available, so code will not run.
