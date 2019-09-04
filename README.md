@@ -5,8 +5,6 @@ Code to reproduce methodology and simulations from "On the Interplay Between Exp
 ## Simulations
 #### sim1_2019.R,...sim12_2019.R
 
-#### sim1_2019.R,...sim12_2019.R
-
 #### simulate_sizedist_2019.R
 
 #### inducedICS_2019.R
