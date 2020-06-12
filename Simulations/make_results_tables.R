@@ -1,7 +1,7 @@
 ###############################################################
 ##              Produce Results Tables and Plots             ##
 ###############################################################
-## Edited: 05/29/2018
+## Edited: 05/27/2020
 library(data.table)
 library(xtable)
 library(wesanderson)
@@ -23,14 +23,15 @@ sigma1 <- 1.5 ## SD of rand eff for X=1
 
 
 ## set path
-path <- "../Simulations/Results/"
-outpath <- "../Simulations/Plots/"
+path <- "/Users/glenmcgee/Dropbox/Glen McGee/Paper 3/Code/Simulations/Results/"
+path2 <- "/Users/glenmcgee/Dropbox/Glen McGee/Paper 3/Code/Simulations/Results/revisions/"
+outpath <- "/Users/glenmcgee/Dropbox/Glen McGee/Paper 3/Code/Simulations/Plots/"
 
 ## colors
-wes_red <- wes_palette(n=5, name="Darjeeling")[1]
-wes_green <- wes_palette(n=5, name="Darjeeling")[2]
-wes_gold <- wes_palette(n=5, name="Darjeeling")[3]
-wes_blue <- wes_palette(n=5, name="Darjeeling")[5]
+wes_red <- wes_palette(n=5, name="Darjeeling1")[1]
+wes_green <- wes_palette(n=5, name="Darjeeling1")[2]
+wes_gold <- wes_palette(n=5, name="Darjeeling1")[3]
+wes_blue <- wes_palette(n=5, name="Darjeeling1")[5]
 
 
 
@@ -55,6 +56,20 @@ results_simGN25_BothDecCOND <- read.table(paste0(path,"results_simGN25_BothDecCO
 results_simG0_FixedINDUCED <- read.table(paste0(path,"results_simG0_FixedINDUCED.txt"),header = TRUE); ## INDUCED INFORMATIVENESS: a1=-1, b1=1, gamma=0, simple misclass
 results_simG0_BothDecINDUCED <- read.table(paste0(path,"results_simG0_BothDecINDUCED.txt"),header = TRUE); ## INDUCED INFORMATIVENESS: a1=-1, b1=1, gamma=0, simple misclass
 results_simG0_BothIncINDUCED <- read.table(paste0(path,"results_simG0_BothIncINDUCED.txt"),header = TRUE); ## INDUCED INFORMATIVENESS: a1=-1, b1=1, gamma=0, simple misclass
+#
+## results with reduced sample size (10% sampling fraction)
+results2_simG0_Fixed <- read.table(paste0(path2,"results_simG0_Fixed.txt"),header = TRUE);
+results2_simG0_BothDec <- read.table(paste0(path2,"results_simG0_BothDec.txt"),header = TRUE);
+results2_simG0_BothInc <- read.table(paste0(path2,"results_simG0_BothInc.txt"),header = TRUE);
+results2_simG0_SensDec <- read.table(paste0(path2,"results_simG0_SensDec.txt"),header = TRUE);
+results2_simGN25_Fixed <- read.table(paste0(path2,"results_simGN25_Fixed.txt"),header = TRUE);
+results2_simGN25_BothDec <- read.table(paste0(path2,"results_simGN25_BothDec.txt"),header = TRUE);
+results2_simGN25_BothInc <- read.table(paste0(path2,"results_simGN25_BothInc.txt"),header = TRUE);
+results2_simGN25_SensDec <- read.table(paste0(path2,"results_simGN25_SensDec.txt"),header = TRUE);
+results2_simG25_Fixed <- read.table(paste0(path2,"results_simG25_Fixed.txt"),header = TRUE);
+results2_simG25_BothDec <- read.table(paste0(path2,"results_simG25_BothDec.txt"),header = TRUE);
+results2_simG25_BothInc <- read.table(paste0(path2,"results_simG25_BothInc.txt"),header = TRUE);
+results2_simG25_SensDec <- read.table(paste0(path2,"results_simG25_SensDec.txt"),header = TRUE);
 
 ################################################
 ##        Functions for Data Processing       ##
@@ -170,6 +185,19 @@ res_simGN25_BothDecCOND <- process_data(results_simGN25_BothDecCOND,gamma=-0.25,
 res_simG0_FixedINDUCED <- process_data(results_simG0_FixedINDUCED,gamma=-0.00,ZIP=FALSE,slopes=TRUE,suppsim=TRUE)
 res_simG0_BothDecINDUCED <- process_data(results_simG0_BothDecINDUCED,gamma=-0.00,ZIP=FALSE,slopes=TRUE,suppsim=TRUE)
 res_simG0_BothIncINDUCED <- process_data(results_simG0_BothIncINDUCED,gamma=-0.00,ZIP=FALSE,slopes=TRUE,suppsim=TRUE)
+#
+res2_simG0_Fixed <- process_data(results2_simG0_Fixed,gamma=-0.00,ZIP=FALSE,slopes=TRUE)
+res2_simG0_BothDec <- process_data(results2_simG0_BothDec,gamma=-0.00,ZIP=FALSE,slopes=TRUE)
+res2_simG0_BothInc <- process_data(results2_simG0_BothInc,gamma=-0.00,ZIP=FALSE,slopes=TRUE)
+res2_simG0_SensDec <- process_data(results2_simG0_SensDec,gamma=-0.00,ZIP=FALSE,slopes=TRUE)
+res2_simGN25_Fixed <- process_data(results2_simGN25_Fixed,gamma=-0.25,ZIP=FALSE,slopes=TRUE)
+res2_simGN25_BothDec <- process_data(results2_simGN25_BothDec,gamma=-0.25,ZIP=FALSE,slopes=TRUE)
+res2_simGN25_BothInc <- process_data(results2_simGN25_BothInc,gamma=-0.25,ZIP=FALSE,slopes=TRUE)
+res2_simGN25_SensDec <- process_data(results2_simGN25_SensDec,gamma=-0.25,ZIP=FALSE,slopes=TRUE)
+res2_simG25_Fixed <- process_data(results2_simG25_Fixed,gamma=0.25,ZIP=FALSE,slopes=TRUE)
+res2_simG25_BothDec <- process_data(results2_simG25_BothDec,gamma=0.25,ZIP=FALSE,slopes=TRUE)
+res2_simG25_BothInc <- process_data(results2_simG25_BothInc,gamma=0.25,ZIP=FALSE,slopes=TRUE)
+res2_simG25_SensDec <- process_data(results2_simG25_SensDec,gamma=0.25,ZIP=FALSE,slopes=TRUE)
 
 # ## list of data files
 # pois_ls <- list(res_pois_gam00_m1,res_pois_gam10_m1,res_pois_gam25_m1,
@@ -289,7 +317,8 @@ master_tab <- function(ls,nams=c("Mean Est","SD","100xMSE","Cvg")){
 }
 
 
-
+####################################################
+## tabs
 
 mean_simG0_Fixed <- make_tab(res_simG0_Fixed,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
 median_simG0_Fixed <- make_tab(res_simG0_Fixed,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
@@ -425,6 +454,111 @@ sd_simG0_BothIncINDUCED <- make_tab(res_simG0_BothIncINDUCED,stat="est",func=sd,
 mse_simG0_BothIncINDUCED <- make_tab(res_simG0_BothIncINDUCED,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
 
 
+
+## revisions sim: smaller sample size (10%)
+mean2_simG0_Fixed <- make_tab(res2_simG0_Fixed,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+median2_simG0_Fixed <- make_tab(res2_simG0_Fixed,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+pctbias2_simG0_Fixed <- make_tab(res2_simG0_Fixed,stat="pctbias",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+median2_simG0_Fixed <- make_tab(res2_simG0_Fixed,stat="pctbias",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+cvg2_simG0_Fixed <- make_tab(res2_simG0_Fixed,stat="cvg",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+sd2_simG0_Fixed <- make_tab(res2_simG0_Fixed,stat="est",func=sd,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+mse2_simG0_Fixed <- make_tab(res2_simG0_Fixed,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
+
+mean2_simG0_BothDec <- make_tab(res2_simG0_BothDec,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+median2_simG0_BothDec <- make_tab(res2_simG0_BothDec,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+pctbias2_simG0_BothDec <- make_tab(res2_simG0_BothDec,stat="pctbias",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+median2_simG0_BothDec <- make_tab(res2_simG0_BothDec,stat="pctbias",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+cvg2_simG0_BothDec <- make_tab(res2_simG0_BothDec,stat="cvg",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+sd2_simG0_BothDec <- make_tab(res2_simG0_BothDec,stat="est",func=sd,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+mse2_simG0_BothDec <- make_tab(res2_simG0_BothDec,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
+
+mean2_simG0_BothInc <- make_tab(res2_simG0_BothInc,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+median2_simG0_BothInc <- make_tab(res2_simG0_BothInc,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+pctbias2_simG0_BothInc <- make_tab(res2_simG0_BothInc,stat="pctbias",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+median2_simG0_BothInc <- make_tab(res2_simG0_BothInc,stat="pctbias",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+cvg2_simG0_BothInc <- make_tab(res2_simG0_BothInc,stat="cvg",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+sd2_simG0_BothInc <- make_tab(res2_simG0_BothInc,stat="est",func=sd,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+mse2_simG0_BothInc <- make_tab(res2_simG0_BothInc,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
+
+mean2_simG0_SensDec <- make_tab(res2_simG0_SensDec,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+median2_simG0_SensDec <- make_tab(res2_simG0_SensDec,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+pctbias2_simG0_SensDec <- make_tab(res2_simG0_SensDec,stat="pctbias",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+median2_simG0_SensDec <- make_tab(res2_simG0_SensDec,stat="pctbias",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+cvg2_simG0_SensDec <- make_tab(res2_simG0_SensDec,stat="cvg",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+sd2_simG0_SensDec <- make_tab(res2_simG0_SensDec,stat="est",func=sd,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+mse2_simG0_SensDec <- make_tab(res2_simG0_SensDec,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
+
+
+
+mean2_simGN25_Fixed <- make_tab(res2_simGN25_Fixed,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+median2_simGN25_Fixed <- make_tab(res2_simGN25_Fixed,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+pctbias2_simGN25_Fixed <- make_tab(res2_simGN25_Fixed,stat="pctbias",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+median2_simGN25_Fixed <- make_tab(res2_simGN25_Fixed,stat="pctbias",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+cvg2_simGN25_Fixed <- make_tab(res2_simGN25_Fixed,stat="cvg",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+sd2_simGN25_Fixed <- make_tab(res2_simGN25_Fixed,stat="est",func=sd,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+mse2_simGN25_Fixed <- make_tab(res2_simGN25_Fixed,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
+
+mean2_simGN25_BothDec <- make_tab(res2_simGN25_BothDec,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+median2_simGN25_BothDec <- make_tab(res2_simGN25_BothDec,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+pctbias2_simGN25_BothDec <- make_tab(res2_simGN25_BothDec,stat="pctbias",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+median2_simGN25_BothDec <- make_tab(res2_simGN25_BothDec,stat="pctbias",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+cvg2_simGN25_BothDec <- make_tab(res2_simGN25_BothDec,stat="cvg",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+sd2_simGN25_BothDec <- make_tab(res2_simGN25_BothDec,stat="est",func=sd,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+mse2_simGN25_BothDec <- make_tab(res2_simGN25_BothDec,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
+
+mean2_simGN25_BothInc <- make_tab(res2_simGN25_BothInc,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+median2_simGN25_BothInc <- make_tab(res2_simGN25_BothInc,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+pctbias2_simGN25_BothInc <- make_tab(res2_simGN25_BothInc,stat="pctbias",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+median2_simGN25_BothInc <- make_tab(res2_simGN25_BothInc,stat="pctbias",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+cvg2_simGN25_BothInc <- make_tab(res2_simGN25_BothInc,stat="cvg",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+sd2_simGN25_BothInc <- make_tab(res2_simGN25_BothInc,stat="est",func=sd,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+mse2_simGN25_BothInc <- make_tab(res2_simGN25_BothInc,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
+
+mean2_simGN25_SensDec <- make_tab(res2_simGN25_SensDec,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+median2_simGN25_SensDec <- make_tab(res2_simGN25_SensDec,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+pctbias2_simGN25_SensDec <- make_tab(res2_simGN25_SensDec,stat="pctbias",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+median2_simGN25_SensDec <- make_tab(res2_simGN25_SensDec,stat="pctbias",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+cvg2_simGN25_SensDec <- make_tab(res2_simGN25_SensDec,stat="cvg",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+sd2_simGN25_SensDec <- make_tab(res2_simGN25_SensDec,stat="est",func=sd,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+mse2_simGN25_SensDec <- make_tab(res2_simGN25_SensDec,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
+
+
+
+mean2_simG25_Fixed <- make_tab(res2_simG25_Fixed,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+median2_simG25_Fixed <- make_tab(res2_simG25_Fixed,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+pctbias2_simG25_Fixed <- make_tab(res2_simG25_Fixed,stat="pctbias",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+median2_simG25_Fixed <- make_tab(res2_simG25_Fixed,stat="pctbias",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+cvg2_simG25_Fixed <- make_tab(res2_simG25_Fixed,stat="cvg",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+sd2_simG25_Fixed <- make_tab(res2_simG25_Fixed,stat="est",func=sd,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+mse2_simG25_Fixed <- make_tab(res2_simG25_Fixed,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
+
+mean2_simG25_BothDec <- make_tab(res2_simG25_BothDec,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+median2_simG25_BothDec <- make_tab(res2_simG25_BothDec,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+pctbias2_simG25_BothDec <- make_tab(res2_simG25_BothDec,stat="pctbias",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+median2_simG25_BothDec <- make_tab(res2_simG25_BothDec,stat="pctbias",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+cvg2_simG25_BothDec <- make_tab(res2_simG25_BothDec,stat="cvg",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+sd2_simG25_BothDec <- make_tab(res2_simG25_BothDec,stat="est",func=sd,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+mse2_simG25_BothDec <- make_tab(res2_simG25_BothDec,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
+
+mean2_simG25_BothInc <- make_tab(res2_simG25_BothInc,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+median2_simG25_BothInc <- make_tab(res2_simG25_BothInc,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+pctbias2_simG25_BothInc <- make_tab(res2_simG25_BothInc,stat="pctbias",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+median2_simG25_BothInc <- make_tab(res2_simG25_BothInc,stat="pctbias",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+cvg2_simG25_BothInc <- make_tab(res2_simG25_BothInc,stat="cvg",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+sd2_simG25_BothInc <- make_tab(res2_simG25_BothInc,stat="est",func=sd,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+mse2_simG25_BothInc <- make_tab(res2_simG25_BothInc,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
+
+mean2_simG25_SensDec <- make_tab(res2_simG25_SensDec,stat="est",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+median2_simG25_SensDec <- make_tab(res2_simG25_SensDec,stat="est",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+pctbias2_simG25_SensDec <- make_tab(res2_simG25_SensDec,stat="pctbias",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+median2_simG25_SensDec <- make_tab(res2_simG25_SensDec,stat="pctbias",func=median,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+cvg2_simG25_SensDec <- make_tab(res2_simG25_SensDec,stat="cvg",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=0)
+sd2_simG25_SensDec <- make_tab(res2_simG25_SensDec,stat="est",func=sd,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2)
+mse2_simG25_SensDec <- make_tab(res2_simG25_SensDec,stat="mse",func=mean,ZIP=FALSE,slopes=TRUE,print=TRUE,dig=2,scale=100)
+
+
+
+#######################################
 ## Master tables
 simG0_Fixedtab_gee <- master_tab(ls=list(mean_simG0_Fixed$gee,sd_simG0_Fixed$gee,mse_simG0_Fixed$gee,cvg_simG0_Fixed$gee))
 simG0_Fixedtab_iee <- master_tab(ls=list(mean_simG0_Fixed$iee,sd_simG0_Fixed$iee,mse_simG0_Fixed$iee,cvg_simG0_Fixed$iee))
@@ -522,6 +656,81 @@ simG0_BothIncINDUCEDtab_wee <- master_tab(ls=list(mean_simG0_BothIncINDUCED$wee,
 simG0_BothIncINDUCEDtab_mm <- master_tab(ls=list(mean_simG0_BothIncINDUCED$mm,sd_simG0_BothIncINDUCED$mm,mse_simG0_BothIncINDUCED$mm,cvg_simG0_BothIncINDUCED$mm))
 simG0_BothIncINDUCEDtab_jmm <- master_tab(ls=list(mean_simG0_BothIncINDUCED$jmm,sd_simG0_BothIncINDUCED$jmm,mse_simG0_BothIncINDUCED$jmm,cvg_simG0_BothIncINDUCED$jmm))
 
+
+## revisions sim: smaller sample size (10%)
+simG0_Fixedtab2_gee <- master_tab(ls=list(mean2_simG0_Fixed$gee,sd2_simG0_Fixed$gee,mse2_simG0_Fixed$gee,cvg2_simG0_Fixed$gee))
+simG0_Fixedtab2_iee <- master_tab(ls=list(mean2_simG0_Fixed$iee,sd2_simG0_Fixed$iee,mse2_simG0_Fixed$iee,cvg2_simG0_Fixed$iee))
+simG0_Fixedtab2_wee <- master_tab(ls=list(mean2_simG0_Fixed$wee,sd2_simG0_Fixed$wee,mse2_simG0_Fixed$wee,cvg2_simG0_Fixed$wee))
+simG0_Fixedtab2_mm <- master_tab(ls=list(mean2_simG0_Fixed$mm,sd2_simG0_Fixed$mm,mse2_simG0_Fixed$mm,cvg2_simG0_Fixed$mm))
+simG0_Fixedtab2_jmm <- master_tab(ls=list(mean2_simG0_Fixed$jmm,sd2_simG0_Fixed$jmm,mse2_simG0_Fixed$jmm,cvg2_simG0_Fixed$jmm))
+
+simG0_BothDectab2_gee <- master_tab(ls=list(mean2_simG0_BothDec$gee,sd2_simG0_BothDec$gee,mse2_simG0_BothDec$gee,cvg2_simG0_BothDec$gee))
+simG0_BothDectab2_iee <- master_tab(ls=list(mean2_simG0_BothDec$iee,sd2_simG0_BothDec$iee,mse2_simG0_BothDec$iee,cvg2_simG0_BothDec$iee))
+simG0_BothDectab2_wee <- master_tab(ls=list(mean2_simG0_BothDec$wee,sd2_simG0_BothDec$wee,mse2_simG0_BothDec$wee,cvg2_simG0_BothDec$wee))
+simG0_BothDectab2_mm <- master_tab(ls=list(mean2_simG0_BothDec$mm,sd2_simG0_BothDec$mm,mse2_simG0_BothDec$mm,cvg2_simG0_BothDec$mm))
+simG0_BothDectab2_jmm <- master_tab(ls=list(mean2_simG0_BothDec$jmm,sd2_simG0_BothDec$jmm,mse2_simG0_BothDec$jmm,cvg2_simG0_BothDec$jmm))
+
+simG0_BothInctab2_gee <- master_tab(ls=list(mean2_simG0_BothInc$gee,sd2_simG0_BothInc$gee,mse2_simG0_BothInc$gee,cvg2_simG0_BothInc$gee))
+simG0_BothInctab2_iee <- master_tab(ls=list(mean2_simG0_BothInc$iee,sd2_simG0_BothInc$iee,mse2_simG0_BothInc$iee,cvg2_simG0_BothInc$iee))
+simG0_BothInctab2_wee <- master_tab(ls=list(mean2_simG0_BothInc$wee,sd2_simG0_BothInc$wee,mse2_simG0_BothInc$wee,cvg2_simG0_BothInc$wee))
+simG0_BothInctab2_mm <- master_tab(ls=list(mean2_simG0_BothInc$mm,sd2_simG0_BothInc$mm,mse2_simG0_BothInc$mm,cvg2_simG0_BothInc$mm))
+simG0_BothInctab2_jmm <- master_tab(ls=list(mean2_simG0_BothInc$jmm,sd2_simG0_BothInc$jmm,mse2_simG0_BothInc$jmm,cvg2_simG0_BothInc$jmm))
+
+simG0_SensDectab2_gee <- master_tab(ls=list(mean2_simG0_SensDec$gee,sd2_simG0_SensDec$gee,mse2_simG0_SensDec$gee,cvg2_simG0_SensDec$gee))
+simG0_SensDectab2_iee <- master_tab(ls=list(mean2_simG0_SensDec$iee,sd2_simG0_SensDec$iee,mse2_simG0_SensDec$iee,cvg2_simG0_SensDec$iee))
+simG0_SensDectab2_wee <- master_tab(ls=list(mean2_simG0_SensDec$wee,sd2_simG0_SensDec$wee,mse2_simG0_SensDec$wee,cvg2_simG0_SensDec$wee))
+simG0_SensDectab2_mm <- master_tab(ls=list(mean2_simG0_SensDec$mm,sd2_simG0_SensDec$mm,mse2_simG0_SensDec$mm,cvg2_simG0_SensDec$mm))
+simG0_SensDectab2_jmm <- master_tab(ls=list(mean2_simG0_SensDec$jmm,sd2_simG0_SensDec$jmm,mse2_simG0_SensDec$jmm,cvg2_simG0_SensDec$jmm))
+
+
+simGN25_Fixedtab2_gee <- master_tab(ls=list(mean2_simGN25_Fixed$gee,sd2_simGN25_Fixed$gee,mse2_simGN25_Fixed$gee,cvg2_simGN25_Fixed$gee))
+simGN25_Fixedtab2_iee <- master_tab(ls=list(mean2_simGN25_Fixed$iee,sd2_simGN25_Fixed$iee,mse2_simGN25_Fixed$iee,cvg2_simGN25_Fixed$iee))
+simGN25_Fixedtab2_wee <- master_tab(ls=list(mean2_simGN25_Fixed$wee,sd2_simGN25_Fixed$wee,mse2_simGN25_Fixed$wee,cvg2_simGN25_Fixed$wee))
+simGN25_Fixedtab2_mm <- master_tab(ls=list(mean2_simGN25_Fixed$mm,sd2_simGN25_Fixed$mm,mse2_simGN25_Fixed$mm,cvg2_simGN25_Fixed$mm))
+simGN25_Fixedtab2_jmm <- master_tab(ls=list(mean2_simGN25_Fixed$jmm,sd2_simGN25_Fixed$jmm,mse2_simGN25_Fixed$jmm,cvg2_simGN25_Fixed$jmm))
+
+simGN25_BothDectab2_gee <- master_tab(ls=list(mean2_simGN25_BothDec$gee,sd2_simGN25_BothDec$gee,mse2_simGN25_BothDec$gee,cvg2_simGN25_BothDec$gee))
+simGN25_BothDectab2_iee <- master_tab(ls=list(mean2_simGN25_BothDec$iee,sd2_simGN25_BothDec$iee,mse2_simGN25_BothDec$iee,cvg2_simGN25_BothDec$iee))
+simGN25_BothDectab2_wee <- master_tab(ls=list(mean2_simGN25_BothDec$wee,sd2_simGN25_BothDec$wee,mse2_simGN25_BothDec$wee,cvg2_simGN25_BothDec$wee))
+simGN25_BothDectab2_mm <- master_tab(ls=list(mean2_simGN25_BothDec$mm,sd2_simGN25_BothDec$mm,mse2_simGN25_BothDec$mm,cvg2_simGN25_BothDec$mm))
+simGN25_BothDectab2_jmm <- master_tab(ls=list(mean2_simGN25_BothDec$jmm,sd2_simGN25_BothDec$jmm,mse2_simGN25_BothDec$jmm,cvg2_simGN25_BothDec$jmm))
+
+simGN25_BothInctab2_gee <- master_tab(ls=list(mean2_simGN25_BothInc$gee,sd2_simGN25_BothInc$gee,mse2_simGN25_BothInc$gee,cvg2_simGN25_BothInc$gee))
+simGN25_BothInctab2_iee <- master_tab(ls=list(mean2_simGN25_BothInc$iee,sd2_simGN25_BothInc$iee,mse2_simGN25_BothInc$iee,cvg2_simGN25_BothInc$iee))
+simGN25_BothInctab2_wee <- master_tab(ls=list(mean2_simGN25_BothInc$wee,sd2_simGN25_BothInc$wee,mse2_simGN25_BothInc$wee,cvg2_simGN25_BothInc$wee))
+simGN25_BothInctab2_mm <- master_tab(ls=list(mean2_simGN25_BothInc$mm,sd2_simGN25_BothInc$mm,mse2_simGN25_BothInc$mm,cvg2_simGN25_BothInc$mm))
+simGN25_BothInctab2_jmm <- master_tab(ls=list(mean2_simGN25_BothInc$jmm,sd2_simGN25_BothInc$jmm,mse2_simGN25_BothInc$jmm,cvg2_simGN25_BothInc$jmm))
+
+simGN25_SensDectab2_gee <- master_tab(ls=list(mean2_simGN25_SensDec$gee,sd2_simGN25_SensDec$gee,mse2_simGN25_SensDec$gee,cvg2_simGN25_SensDec$gee))
+simGN25_SensDectab2_iee <- master_tab(ls=list(mean2_simGN25_SensDec$iee,sd2_simGN25_SensDec$iee,mse2_simGN25_SensDec$iee,cvg2_simGN25_SensDec$iee))
+simGN25_SensDectab2_wee <- master_tab(ls=list(mean2_simGN25_SensDec$wee,sd2_simGN25_SensDec$wee,mse2_simGN25_SensDec$wee,cvg2_simGN25_SensDec$wee))
+simGN25_SensDectab2_mm <- master_tab(ls=list(mean2_simGN25_SensDec$mm,sd2_simGN25_SensDec$mm,mse2_simGN25_SensDec$mm,cvg2_simGN25_SensDec$mm))
+simGN25_SensDectab2_jmm <- master_tab(ls=list(mean2_simGN25_SensDec$jmm,sd2_simGN25_SensDec$jmm,mse2_simGN25_SensDec$jmm,cvg2_simGN25_SensDec$jmm))
+
+
+simG25_Fixedtab2_gee <- master_tab(ls=list(mean2_simG25_Fixed$gee,sd2_simG25_Fixed$gee,mse2_simG25_Fixed$gee,cvg2_simG25_Fixed$gee))
+simG25_Fixedtab2_iee <- master_tab(ls=list(mean2_simG25_Fixed$iee,sd2_simG25_Fixed$iee,mse2_simG25_Fixed$iee,cvg2_simG25_Fixed$iee))
+simG25_Fixedtab2_wee <- master_tab(ls=list(mean2_simG25_Fixed$wee,sd2_simG25_Fixed$wee,mse2_simG25_Fixed$wee,cvg2_simG25_Fixed$wee))
+simG25_Fixedtab2_mm <- master_tab(ls=list(mean2_simG25_Fixed$mm,sd2_simG25_Fixed$mm,mse2_simG25_Fixed$mm,cvg2_simG25_Fixed$mm))
+simG25_Fixedtab2_jmm <- master_tab(ls=list(mean2_simG25_Fixed$jmm,sd2_simG25_Fixed$jmm,mse2_simG25_Fixed$jmm,cvg2_simG25_Fixed$jmm))
+
+simG25_BothDectab2_gee <- master_tab(ls=list(mean2_simG25_BothDec$gee,sd2_simG25_BothDec$gee,mse2_simG25_BothDec$gee,cvg2_simG25_BothDec$gee))
+simG25_BothDectab2_iee <- master_tab(ls=list(mean2_simG25_BothDec$iee,sd2_simG25_BothDec$iee,mse2_simG25_BothDec$iee,cvg2_simG25_BothDec$iee))
+simG25_BothDectab2_wee <- master_tab(ls=list(mean2_simG25_BothDec$wee,sd2_simG25_BothDec$wee,mse2_simG25_BothDec$wee,cvg2_simG25_BothDec$wee))
+simG25_BothDectab2_mm <- master_tab(ls=list(mean2_simG25_BothDec$mm,sd2_simG25_BothDec$mm,mse2_simG25_BothDec$mm,cvg2_simG25_BothDec$mm))
+simG25_BothDectab2_jmm <- master_tab(ls=list(mean2_simG25_BothDec$jmm,sd2_simG25_BothDec$jmm,mse2_simG25_BothDec$jmm,cvg2_simG25_BothDec$jmm))
+
+simG25_BothInctab2_gee <- master_tab(ls=list(mean2_simG25_BothInc$gee,sd2_simG25_BothInc$gee,mse2_simG25_BothInc$gee,cvg2_simG25_BothInc$gee))
+simG25_BothInctab2_iee <- master_tab(ls=list(mean2_simG25_BothInc$iee,sd2_simG25_BothInc$iee,mse2_simG25_BothInc$iee,cvg2_simG25_BothInc$iee))
+simG25_BothInctab2_wee <- master_tab(ls=list(mean2_simG25_BothInc$wee,sd2_simG25_BothInc$wee,mse2_simG25_BothInc$wee,cvg2_simG25_BothInc$wee))
+simG25_BothInctab2_mm <- master_tab(ls=list(mean2_simG25_BothInc$mm,sd2_simG25_BothInc$mm,mse2_simG25_BothInc$mm,cvg2_simG25_BothInc$mm))
+simG25_BothInctab2_jmm <- master_tab(ls=list(mean2_simG25_BothInc$jmm,sd2_simG25_BothInc$jmm,mse2_simG25_BothInc$jmm,cvg2_simG25_BothInc$jmm))
+
+simG25_SensDectab2_gee <- master_tab(ls=list(mean2_simG25_SensDec$gee,sd2_simG25_SensDec$gee,mse2_simG25_SensDec$gee,cvg2_simG25_SensDec$gee))
+simG25_SensDectab2_iee <- master_tab(ls=list(mean2_simG25_SensDec$iee,sd2_simG25_SensDec$iee,mse2_simG25_SensDec$iee,cvg2_simG25_SensDec$iee))
+simG25_SensDectab2_wee <- master_tab(ls=list(mean2_simG25_SensDec$wee,sd2_simG25_SensDec$wee,mse2_simG25_SensDec$wee,cvg2_simG25_SensDec$wee))
+simG25_SensDectab2_mm <- master_tab(ls=list(mean2_simG25_SensDec$mm,sd2_simG25_SensDec$mm,mse2_simG25_SensDec$mm,cvg2_simG25_SensDec$mm))
+simG25_SensDectab2_jmm <- master_tab(ls=list(mean2_simG25_SensDec$jmm,sd2_simG25_SensDec$jmm,mse2_simG25_SensDec$jmm,cvg2_simG25_SensDec$jmm))
 
 
 ################################################
@@ -691,6 +900,32 @@ kable(B0tab_induced2,format="latex",booktabs=TRUE,linesep="",caption="B0 -- WEE/
 kable(B1tab_induced2,format="latex",booktabs=TRUE,linesep="",caption="B1 -- WEE/JMM",align=rep(c("l","r","l","r"),c(2,7,1,4)))%>%collapse_rows(columns = 1,latex_hline="major")
 kable(B2tab_induced2,format="latex",booktabs=TRUE,linesep="",caption="B2 -- WEE/JMM",align=rep(c("l","r","l","r"),c(2,7,1,4)))%>%collapse_rows(columns = 1,latex_hline="major")
 
+### revisions sim: smaller sample size (10%)
+beta_tab2_gee <- beta_tab(list(simG0_Fixedtab2_gee,simG0_BothDectab2_gee,simG0_BothInctab2_gee,simG0_SensDectab2_gee,simGN25_Fixedtab2_gee,simGN25_BothDectab2_gee,simGN25_BothInctab2_gee,simGN25_SensDectab2_gee,simG25_Fixedtab2_gee,simG25_BothDectab2_gee,simG25_BothInctab2_gee,simG25_SensDectab2_gee))
+beta_tab2_iee <- beta_tab(list(simG0_Fixedtab2_iee,simG0_BothDectab2_iee,simG0_BothInctab2_iee,simG0_SensDectab2_iee,simGN25_Fixedtab2_iee,simGN25_BothDectab2_iee,simGN25_BothInctab2_iee,simGN25_SensDectab2_iee,simG25_Fixedtab2_iee,simG25_BothDectab2_iee,simG25_BothInctab2_iee,simG25_SensDectab2_iee))
+beta_tab2_wee <- beta_tab(list(simG0_Fixedtab2_wee,simG0_BothDectab2_wee,simG0_BothInctab2_wee,simG0_SensDectab2_wee,simGN25_Fixedtab2_wee,simGN25_BothDectab2_wee,simGN25_BothInctab2_wee,simGN25_SensDectab2_wee,simG25_Fixedtab2_wee,simG25_BothDectab2_wee,simG25_BothInctab2_wee,simG25_SensDectab2_wee))
+beta_tab2_mm <- beta_tab(list(simG0_Fixedtab2_mm,simG0_BothDectab2_mm,simG0_BothInctab2_mm,simG0_SensDectab2_mm,simGN25_Fixedtab2_mm,simGN25_BothDectab2_mm,simGN25_BothInctab2_mm,simGN25_SensDectab2_mm,simG25_Fixedtab2_mm,simG25_BothDectab2_mm,simG25_BothInctab2_mm,simG25_SensDectab2_mm))
+beta_tab2_jmm <- beta_tab(list(simG0_Fixedtab2_jmm,simG0_BothDectab2_jmm,simG0_BothInctab2_jmm,simG0_SensDectab2_jmm,simGN25_Fixedtab2_jmm,simGN25_BothDectab2_jmm,simGN25_BothInctab2_jmm,simGN25_SensDectab2_jmm,simG25_Fixedtab2_jmm,simG25_BothDectab2_jmm,simG25_BothInctab2_jmm,simG25_SensDectab2_jmm))
+B0_tab2_gee <- beta_tab2_gee$B0; B1_tab2_gee <- beta_tab2_gee$B1; B2_tab2_gee <- beta_tab2_gee$B2
+B0_tab2_iee <- beta_tab2_iee$B0; B1_tab2_iee <- beta_tab2_iee$B1; B2_tab2_iee <- beta_tab2_iee$B2
+B0_tab2_wee <- beta_tab2_wee$B0; B1_tab2_wee <- beta_tab2_wee$B1; B2_tab2_wee <- beta_tab2_wee$B2
+B0_tab2_mm <- beta_tab2_mm$B0; B1_tab2_mm <- beta_tab2_mm$B1; B2_tab2_mm <- beta_tab2_mm$B2
+B0_tab2_jmm <- beta_tab2_jmm$B0; B1_tab2_jmm <- beta_tab2_jmm$B1; B2_tab2_jmm <- beta_tab2_jmm$B2
+## Final tables
+B0tab2 <- (cbind(B0_tab2_jmm,B0_tab2_wee[,-(1:2)]));rownames(B0tab2) <- NULL
+B1tab2 <- (cbind(B1_tab2_jmm,B1_tab2_wee[,-(1:2)]));rownames(B1tab2) <- NULL
+B2tab2 <- (cbind(B2_tab2_jmm,B2_tab2_wee[,-(1:2)]));rownames(B2tab2) <- NULL
+## Final
+kable(B0tab2,format="latex",booktabs=TRUE,linesep="",caption="B0 -- JMM/WEE",align=rep(c("l","r"),c(1,1+7+4)))%>%collapse_rows(columns = 1,latex_hline="major")
+kable(B1tab2,format="latex",booktabs=TRUE,linesep="",caption="B1 -- JMM/WEE",align=rep(c("l","r"),c(1,1+7+4)))%>%collapse_rows(columns = 1,latex_hline="major")
+kable(B2tab2,format="latex",booktabs=TRUE,linesep="",caption="B2 -- JMM/WEE",align=rep(c("l","r"),c(1,1+7+4)))%>%collapse_rows(columns = 1,latex_hline="major")
+## IEE/MMM table
+B0tab2_noninf <- data.frame(cbind(B0_tab2_mm,B0_tab2_iee[,-(1:2)]));rownames(B0tab2_noninf) <- NULL
+B1tab2_noninf <- data.frame(cbind(B1_tab2_mm,B1_tab2_iee[,-(1:2)]));rownames(B1tab2_noninf) <- NULL
+B2tab2_noninf <- data.frame(cbind(B2_tab2_mm,B2_tab2_iee[,-(1:2)]));rownames(B2tab2_noninf) <- NULL
+kable(B0tab2_noninf,format="latex",booktabs=TRUE,linesep="",caption="B0 -- MM/IEE",align=rep(c("l","r","l","r"),c(2,7,1,4)))%>%collapse_rows(columns = 1,latex_hline="major")
+kable(B1tab2_noninf,format="latex",booktabs=TRUE,linesep="",caption="B1 -- MM/IEE",align=rep(c("l","r","l","r"),c(2,7,1,4)))%>%collapse_rows(columns = 1,latex_hline="major")
+kable(B2tab2_noninf,format="latex",booktabs=TRUE,linesep="",caption="B2 -- MM/IEE",align=rep(c("l","r","l","r"),c(2,7,1,4)))%>%collapse_rows(columns = 1,latex_hline="major")
 
 
 ################################################
@@ -863,8 +1098,81 @@ box_wee_simG0_BothIncINDUCED <- make_box(res_simG0_BothIncINDUCED,method="wee",c
 box_mm_simG0_BothIncINDUCED <- make_box(res_simG0_BothIncINDUCED,method="mm",caption="Non-ICS \n Sens/Spec Inc")
 box_jmm_simG0_BothIncINDUCED <- make_box(res_simG0_BothIncINDUCED,method="jmm",caption="Non-ICS \n Sens/Spec Inc")
 
+## revisions sim: smaller sample size (10%)
+box2_gee_simG0_Fixed <- make_box(res2_simG0_Fixed,method="gee",caption="Non-ICS \n Simple Mis")
+box2_iee_simG0_Fixed <- make_box(res2_simG0_Fixed,method="iee",caption="Non-ICS \n Simple Mis")
+box2_wee_simG0_Fixed <- make_box(res2_simG0_Fixed,method="wee",caption="Non-ICS \n Simple Mis")
+box2_mm_simG0_Fixed <- make_box(res2_simG0_Fixed,method="mm",caption="Non-ICS \n Simple Mis")
+box2_jmm_simG0_Fixed <- make_box(res2_simG0_Fixed,method="jmm",caption="Non-ICS \n Simple Mis")
 
+box2_gee_simG0_BothDec <- make_box(res2_simG0_BothDec,method="gee",caption="Non-ICS \n Sens/Spec Dec")
+box2_iee_simG0_BothDec <- make_box(res2_simG0_BothDec,method="iee",caption="Non-ICS \n Sens/Spec Dec")
+box2_wee_simG0_BothDec <- make_box(res2_simG0_BothDec,method="wee",caption="Non-ICS \n Sens/Spec Dec")
+box2_mm_simG0_BothDec <- make_box(res2_simG0_BothDec,method="mm",caption="Non-ICS \n Sens/Spec Dec")
+box2_jmm_simG0_BothDec <- make_box(res2_simG0_BothDec,method="jmm",caption="Non-ICS \n Sens/Spec Dec")
 
+box2_gee_simG0_BothInc <- make_box(res2_simG0_BothInc,method="gee",caption="Non-ICS \n Sens/Spec Inc")
+box2_iee_simG0_BothInc <- make_box(res2_simG0_BothInc,method="iee",caption="Non-ICS \n Sens/Spec Inc")
+box2_wee_simG0_BothInc <- make_box(res2_simG0_BothInc,method="wee",caption="Non-ICS \n Sens/Spec Inc")
+box2_mm_simG0_BothInc <- make_box(res2_simG0_BothInc,method="mm",caption="Non-ICS \n Sens/Spec Inc")
+box2_jmm_simG0_BothInc <- make_box(res2_simG0_BothInc,method="jmm",caption="Non-ICS \n Sens/Spec Inc")
+
+box2_gee_simG0_SensDec <- make_box(res2_simG0_SensDec,method="gee",caption="Non-ICS \n Sens Dec")
+box2_iee_simG0_SensDec <- make_box(res2_simG0_SensDec,method="iee",caption="Non-ICS \n Sens Dec")
+box2_wee_simG0_SensDec <- make_box(res2_simG0_SensDec,method="wee",caption="Non-ICS \n Sens Dec")
+box2_mm_simG0_SensDec <- make_box(res2_simG0_SensDec,method="mm",caption="Non-ICS \n Sens Dec")
+box2_jmm_simG0_SensDec <- make_box(res2_simG0_SensDec,method="jmm",caption="Non-ICS \n Sens Dec")
+
+box2_gee_simGN25_Fixed <- make_box(res2_simGN25_Fixed,method="gee",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Simple Mis")))
+box2_iee_simGN25_Fixed <- make_box(res2_simGN25_Fixed,method="iee",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Simple Mis")))
+box2_wee_simGN25_Fixed <- make_box(res2_simGN25_Fixed,method="wee",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Simple Mis")))
+box2_mm_simGN25_Fixed <- make_box(res2_simGN25_Fixed,method="mm",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Simple Mis")))
+box2_jmm_simGN25_Fixed <- make_box(res2_simGN25_Fixed,method="jmm",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Simple Mis")))
+
+box2_gee_simGN25_BothDec <- make_box(res2_simGN25_BothDec,method="gee",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens/Spec Dec")))
+box2_iee_simGN25_BothDec <- make_box(res2_simGN25_BothDec,method="iee",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens/Spec Dec")))
+box2_wee_simGN25_BothDec <- make_box(res2_simGN25_BothDec,method="wee",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens/Spec Dec")))
+box2_mm_simGN25_BothDec <- make_box(res2_simGN25_BothDec,method="mm",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens/Spec Dec")))
+box2_jmm_simGN25_BothDec <- make_box(res2_simGN25_BothDec,method="jmm",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens/Spec Dec")))
+
+box2_gee_simGN25_BothInc <- make_box(res2_simGN25_BothInc,method="gee",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens/Spec Inc")))
+box2_iee_simGN25_BothInc <- make_box(res2_simGN25_BothInc,method="iee",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens/Spec Inc")))
+box2_wee_simGN25_BothInc <- make_box(res2_simGN25_BothInc,method="wee",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens/Spec Inc")))
+box2_mm_simGN25_BothInc <- make_box(res2_simGN25_BothInc,method="mm",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens/Spec Inc")))
+box2_jmm_simGN25_BothInc <- make_box(res2_simGN25_BothInc,method="jmm",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens/Spec Inc")))
+
+box2_gee_simGN25_SensDec <- make_box(res2_simGN25_SensDec,method="gee",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens Dec")))
+box2_iee_simGN25_SensDec <- make_box(res2_simGN25_SensDec,method="iee",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens Dec")))
+box2_wee_simGN25_SensDec <- make_box(res2_simGN25_SensDec,method="wee",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens Dec")))
+box2_mm_simGN25_SensDec <- make_box(res2_simGN25_SensDec,method="mm",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens Dec")))
+box2_jmm_simGN25_SensDec <- make_box(res2_simGN25_SensDec,method="jmm",caption=expression(atop(paste("ICS (",gamma,"<0)"),"Sens Dec")))
+
+box2_gee_simG25_Fixed <- make_box(res2_simG25_Fixed,method="gee",caption=expression(atop(paste("ICS (",gamma,">0)"),"Simple Mis")))
+box2_iee_simG25_Fixed <- make_box(res2_simG25_Fixed,method="iee",caption=expression(atop(paste("ICS (",gamma,">0)"),"Simple Mis")))
+box2_wee_simG25_Fixed <- make_box(res2_simG25_Fixed,method="wee",caption=expression(atop(paste("ICS (",gamma,">0)"),"Simple Mis")))
+box2_mm_simG25_Fixed <- make_box(res2_simG25_Fixed,method="mm",caption=expression(atop(paste("ICS (",gamma,">0)"),"Simple Mis")))
+box2_jmm_simG25_Fixed <- make_box(res2_simG25_Fixed,method="jmm",caption=expression(atop(paste("ICS (",gamma,">0)"),"Simple Mis")))
+
+box2_gee_simG25_BothDec <- make_box(res2_simG25_BothDec,method="gee",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens/Spec Dec")))
+box2_iee_simG25_BothDec <- make_box(res2_simG25_BothDec,method="iee",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens/Spec Dec")))
+box2_wee_simG25_BothDec <- make_box(res2_simG25_BothDec,method="wee",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens/Spec Dec")))
+box2_mm_simG25_BothDec <- make_box(res2_simG25_BothDec,method="mm",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens/Spec Dec")))
+box2_jmm_simG25_BothDec <- make_box(res2_simG25_BothDec,method="jmm",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens/Spec Dec")))
+
+box2_gee_simG25_BothInc <- make_box(res2_simG25_BothInc,method="gee",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens/Spec Inc")))
+box2_iee_simG25_BothInc <- make_box(res2_simG25_BothInc,method="iee",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens/Spec Inc")))
+box2_wee_simG25_BothInc <- make_box(res2_simG25_BothInc,method="wee",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens/Spec Inc")))
+box2_mm_simG25_BothInc <- make_box(res2_simG25_BothInc,method="mm",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens/Spec Inc")))
+box2_jmm_simG25_BothInc <- make_box(res2_simG25_BothInc,method="jmm",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens/Spec Inc")))
+
+box2_gee_simG25_SensDec <- make_box(res2_simG25_SensDec,method="gee",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens Dec")))
+box2_iee_simG25_SensDec <- make_box(res2_simG25_SensDec,method="iee",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens Dec")))
+box2_wee_simG25_SensDec <- make_box(res2_simG25_SensDec,method="wee",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens Dec")))
+box2_mm_simG25_SensDec <- make_box(res2_simG25_SensDec,method="mm",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens Dec")))
+box2_jmm_simG25_SensDec <- make_box(res2_simG25_SensDec,method="jmm",caption=expression(atop(paste("ICS (",gamma,">0)"),"Sens Dec")))
+
+##########
+## save
 ggsave(filename=paste0(outpath,"B0box_gee_simG0_Fixed.pdf"),plot=box_gee_simG0_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"B1box_gee_simG0_Fixed.pdf"),plot=box_gee_simG0_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"B2box_gee_simG0_Fixed.pdf"),plot=box_gee_simG0_Fixed$B2,width=4,height=4)
 ggsave(filename=paste0(outpath,"B0box_iee_simG0_Fixed.pdf"),plot=box_iee_simG0_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"B1box_iee_simG0_Fixed.pdf"),plot=box_iee_simG0_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"B2box_iee_simG0_Fixed.pdf"),plot=box_iee_simG0_Fixed$B2,width=4,height=4)
 ggsave(filename=paste0(outpath,"B0box_wee_simG0_Fixed.pdf"),plot=box_wee_simG0_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"B1box_wee_simG0_Fixed.pdf"),plot=box_wee_simG0_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"B2box_wee_simG0_Fixed.pdf"),plot=box_wee_simG0_Fixed$B2,width=4,height=4)
@@ -962,6 +1270,79 @@ ggsave(filename=paste0(outpath,"B0box_wee_simG0_BothIncINDUCED.pdf"),plot=box_we
 ggsave(filename=paste0(outpath,"B0box_mm_simG0_BothIncINDUCED.pdf"),plot=box_mm_simG0_BothIncINDUCED$B0,width=4,height=4);ggsave(filename=paste0(outpath,"B1box_mm_simG0_BothIncINDUCED.pdf"),plot=box_mm_simG0_BothIncINDUCED$B1,width=4,height=4);ggsave(filename=paste0(outpath,"B2box_mm_simG0_BothIncINDUCED.pdf"),plot=box_mm_simG0_BothIncINDUCED$B2,width=4,height=4)
 ggsave(filename=paste0(outpath,"B0box_jmm_simG0_BothIncINDUCED.pdf"),plot=box_jmm_simG0_BothIncINDUCED$B0,width=4,height=4);ggsave(filename=paste0(outpath,"B1box_jmm_simG0_BothIncINDUCED.pdf"),plot=box_jmm_simG0_BothIncINDUCED$B1,width=4,height=4);ggsave(filename=paste0(outpath,"B2box_jmm_simG0_BothIncINDUCED.pdf"),plot=box_jmm_simG0_BothIncINDUCED$B2,width=4,height=4)
 
+## revisions sim: smaller sample size (10%)
+ggsave(filename=paste0(outpath,"revisionB0box_gee_simG0_Fixed.pdf"),plot=box2_gee_simG0_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_gee_simG0_Fixed.pdf"),plot=box2_gee_simG0_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_gee_simG0_Fixed.pdf"),plot=box2_gee_simG0_Fixed$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_iee_simG0_Fixed.pdf"),plot=box2_iee_simG0_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_iee_simG0_Fixed.pdf"),plot=box2_iee_simG0_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_iee_simG0_Fixed.pdf"),plot=box2_iee_simG0_Fixed$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_simG0_Fixed.pdf"),plot=box2_wee_simG0_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_wee_simG0_Fixed.pdf"),plot=box2_wee_simG0_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_wee_simG0_Fixed.pdf"),plot=box2_wee_simG0_Fixed$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_mm_simG0_Fixed.pdf"),plot=box2_mm_simG0_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_mm_simG0_Fixed.pdf"),plot=box2_mm_simG0_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_mm_simG0_Fixed.pdf"),plot=box2_mm_simG0_Fixed$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_simG0_Fixed.pdf"),plot=box2_jmm_simG0_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_jmm_simG0_Fixed.pdf"),plot=box2_jmm_simG0_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_jmm_simG0_Fixed.pdf"),plot=box2_jmm_simG0_Fixed$B2,width=4,height=4)
+
+ggsave(filename=paste0(outpath,"revisionB0box_gee_simG0_BothDec.pdf"),plot=box2_gee_simG0_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_gee_simG0_BothDec.pdf"),plot=box2_gee_simG0_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_gee_simG0_BothDec.pdf"),plot=box2_gee_simG0_BothDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_iee_simG0_BothDec.pdf"),plot=box2_iee_simG0_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_iee_simG0_BothDec.pdf"),plot=box2_iee_simG0_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_iee_simG0_BothDec.pdf"),plot=box2_iee_simG0_BothDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_simG0_BothDec.pdf"),plot=box2_wee_simG0_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_wee_simG0_BothDec.pdf"),plot=box2_wee_simG0_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_wee_simG0_BothDec.pdf"),plot=box2_wee_simG0_BothDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_mm_simG0_BothDec.pdf"),plot=box2_mm_simG0_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_mm_simG0_BothDec.pdf"),plot=box2_mm_simG0_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_mm_simG0_BothDec.pdf"),plot=box2_mm_simG0_BothDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_simG0_BothDec.pdf"),plot=box2_jmm_simG0_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_jmm_simG0_BothDec.pdf"),plot=box2_jmm_simG0_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_jmm_simG0_BothDec.pdf"),plot=box2_jmm_simG0_BothDec$B2,width=4,height=4)
+
+ggsave(filename=paste0(outpath,"revisionB0box_gee_simG0_BothInc.pdf"),plot=box2_gee_simG0_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_gee_simG0_BothInc.pdf"),plot=box2_gee_simG0_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_gee_simG0_BothInc.pdf"),plot=box2_gee_simG0_BothInc$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_iee_simG0_BothInc.pdf"),plot=box2_iee_simG0_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_iee_simG0_BothInc.pdf"),plot=box2_iee_simG0_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_iee_simG0_BothInc.pdf"),plot=box2_iee_simG0_BothInc$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_simG0_BothInc.pdf"),plot=box2_wee_simG0_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_wee_simG0_BothInc.pdf"),plot=box2_wee_simG0_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_wee_simG0_BothInc.pdf"),plot=box2_wee_simG0_BothInc$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_mm_simG0_BothInc.pdf"),plot=box2_mm_simG0_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_mm_simG0_BothInc.pdf"),plot=box2_mm_simG0_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_mm_simG0_BothInc.pdf"),plot=box2_mm_simG0_BothInc$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_simG0_BothInc.pdf"),plot=box2_jmm_simG0_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_jmm_simG0_BothInc.pdf"),plot=box2_jmm_simG0_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_jmm_simG0_BothInc.pdf"),plot=box2_jmm_simG0_BothInc$B2,width=4,height=4)
+
+ggsave(filename=paste0(outpath,"revisionB0box_gee_simG0_SensDec.pdf"),plot=box2_gee_simG0_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_gee_simG0_SensDec.pdf"),plot=box2_gee_simG0_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_gee_simG0_SensDec.pdf"),plot=box2_gee_simG0_SensDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_iee_simG0_SensDec.pdf"),plot=box2_iee_simG0_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_iee_simG0_SensDec.pdf"),plot=box2_iee_simG0_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_iee_simG0_SensDec.pdf"),plot=box2_iee_simG0_SensDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_simG0_SensDec.pdf"),plot=box2_wee_simG0_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_wee_simG0_SensDec.pdf"),plot=box2_wee_simG0_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_wee_simG0_SensDec.pdf"),plot=box2_wee_simG0_SensDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_mm_simG0_SensDec.pdf"),plot=box2_mm_simG0_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_mm_simG0_SensDec.pdf"),plot=box2_mm_simG0_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_mm_simG0_SensDec.pdf"),plot=box2_mm_simG0_SensDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_simG0_SensDec.pdf"),plot=box2_jmm_simG0_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_jmm_simG0_SensDec.pdf"),plot=box2_jmm_simG0_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_jmm_simG0_SensDec.pdf"),plot=box2_jmm_simG0_SensDec$B2,width=4,height=4)
+
+ggsave(filename=paste0(outpath,"revisionB0box_gee_simGN25_Fixed.pdf"),plot=box2_gee_simGN25_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_gee_simGN25_Fixed.pdf"),plot=box2_gee_simGN25_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_gee_simGN25_Fixed.pdf"),plot=box2_gee_simGN25_Fixed$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_iee_simGN25_Fixed.pdf"),plot=box2_iee_simGN25_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_iee_simGN25_Fixed.pdf"),plot=box2_iee_simGN25_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_iee_simGN25_Fixed.pdf"),plot=box2_iee_simGN25_Fixed$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_simGN25_Fixed.pdf"),plot=box2_wee_simGN25_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_wee_simGN25_Fixed.pdf"),plot=box2_wee_simGN25_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_wee_simGN25_Fixed.pdf"),plot=box2_wee_simGN25_Fixed$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_mm_simGN25_Fixed.pdf"),plot=box2_mm_simGN25_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_mm_simGN25_Fixed.pdf"),plot=box2_mm_simGN25_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_mm_simGN25_Fixed.pdf"),plot=box2_mm_simGN25_Fixed$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_simGN25_Fixed.pdf"),plot=box2_jmm_simGN25_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_jmm_simGN25_Fixed.pdf"),plot=box2_jmm_simGN25_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_jmm_simGN25_Fixed.pdf"),plot=box2_jmm_simGN25_Fixed$B2,width=4,height=4)
+
+ggsave(filename=paste0(outpath,"revisionB0box_gee_simGN25_BothDec.pdf"),plot=box2_gee_simGN25_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_gee_simGN25_BothDec.pdf"),plot=box2_gee_simGN25_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_gee_simGN25_BothDec.pdf"),plot=box2_gee_simGN25_BothDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_iee_simGN25_BothDec.pdf"),plot=box2_iee_simGN25_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_iee_simGN25_BothDec.pdf"),plot=box2_iee_simGN25_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_iee_simGN25_BothDec.pdf"),plot=box2_iee_simGN25_BothDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_simGN25_BothDec.pdf"),plot=box2_wee_simGN25_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_wee_simGN25_BothDec.pdf"),plot=box2_wee_simGN25_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_wee_simGN25_BothDec.pdf"),plot=box2_wee_simGN25_BothDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_mm_simGN25_BothDec.pdf"),plot=box2_mm_simGN25_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_mm_simGN25_BothDec.pdf"),plot=box2_mm_simGN25_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_mm_simGN25_BothDec.pdf"),plot=box2_mm_simGN25_BothDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_simGN25_BothDec.pdf"),plot=box2_jmm_simGN25_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_jmm_simGN25_BothDec.pdf"),plot=box2_jmm_simGN25_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_jmm_simGN25_BothDec.pdf"),plot=box2_jmm_simGN25_BothDec$B2,width=4,height=4)
+
+ggsave(filename=paste0(outpath,"revisionB0box_gee_simGN25_BothInc.pdf"),plot=box2_gee_simGN25_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_gee_simGN25_BothInc.pdf"),plot=box2_gee_simGN25_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_gee_simGN25_BothInc.pdf"),plot=box2_gee_simGN25_BothInc$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_iee_simGN25_BothInc.pdf"),plot=box2_iee_simGN25_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_iee_simGN25_BothInc.pdf"),plot=box2_iee_simGN25_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_iee_simGN25_BothInc.pdf"),plot=box2_iee_simGN25_BothInc$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_simGN25_BothInc.pdf"),plot=box2_wee_simGN25_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_wee_simGN25_BothInc.pdf"),plot=box2_wee_simGN25_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_wee_simGN25_BothInc.pdf"),plot=box2_wee_simGN25_BothInc$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_mm_simGN25_BothInc.pdf"),plot=box2_mm_simGN25_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_mm_simGN25_BothInc.pdf"),plot=box2_mm_simGN25_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_mm_simGN25_BothInc.pdf"),plot=box2_mm_simGN25_BothInc$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_simGN25_BothInc.pdf"),plot=box2_jmm_simGN25_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_jmm_simGN25_BothInc.pdf"),plot=box2_jmm_simGN25_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_jmm_simGN25_BothInc.pdf"),plot=box2_jmm_simGN25_BothInc$B2,width=4,height=4)
+
+ggsave(filename=paste0(outpath,"revisionB0box_gee_simGN25_SensDec.pdf"),plot=box2_gee_simGN25_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_gee_simGN25_SensDec.pdf"),plot=box2_gee_simGN25_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_gee_simGN25_SensDec.pdf"),plot=box2_gee_simGN25_SensDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_iee_simGN25_SensDec.pdf"),plot=box2_iee_simGN25_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_iee_simGN25_SensDec.pdf"),plot=box2_iee_simGN25_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_iee_simGN25_SensDec.pdf"),plot=box2_iee_simGN25_SensDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_simGN25_SensDec.pdf"),plot=box2_wee_simGN25_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_wee_simGN25_SensDec.pdf"),plot=box2_wee_simGN25_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_wee_simGN25_SensDec.pdf"),plot=box2_wee_simGN25_SensDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_mm_simGN25_SensDec.pdf"),plot=box2_mm_simGN25_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_mm_simGN25_SensDec.pdf"),plot=box2_mm_simGN25_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_mm_simGN25_SensDec.pdf"),plot=box2_mm_simGN25_SensDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_simGN25_SensDec.pdf"),plot=box2_jmm_simGN25_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_jmm_simGN25_SensDec.pdf"),plot=box2_jmm_simGN25_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_jmm_simGN25_SensDec.pdf"),plot=box2_jmm_simGN25_SensDec$B2,width=4,height=4)
+
+ggsave(filename=paste0(outpath,"revisionB0box_gee_simG25_Fixed.pdf"),plot=box2_gee_simG25_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_gee_simG25_Fixed.pdf"),plot=box2_gee_simG25_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_gee_simG25_Fixed.pdf"),plot=box2_gee_simG25_Fixed$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_iee_simG25_Fixed.pdf"),plot=box2_iee_simG25_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_iee_simG25_Fixed.pdf"),plot=box2_iee_simG25_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_iee_simG25_Fixed.pdf"),plot=box2_iee_simG25_Fixed$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_simG25_Fixed.pdf"),plot=box2_wee_simG25_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_wee_simG25_Fixed.pdf"),plot=box2_wee_simG25_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_wee_simG25_Fixed.pdf"),plot=box2_wee_simG25_Fixed$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_mm_simG25_Fixed.pdf"),plot=box2_mm_simG25_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_mm_simG25_Fixed.pdf"),plot=box2_mm_simG25_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_mm_simG25_Fixed.pdf"),plot=box2_mm_simG25_Fixed$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_simG25_Fixed.pdf"),plot=box2_jmm_simG25_Fixed$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_jmm_simG25_Fixed.pdf"),plot=box2_jmm_simG25_Fixed$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_jmm_simG25_Fixed.pdf"),plot=box2_jmm_simG25_Fixed$B2,width=4,height=4)
+
+ggsave(filename=paste0(outpath,"revisionB0box_gee_simG25_BothDec.pdf"),plot=box2_gee_simG25_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_gee_simG25_BothDec.pdf"),plot=box2_gee_simG25_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_gee_simG25_BothDec.pdf"),plot=box2_gee_simG25_BothDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_iee_simG25_BothDec.pdf"),plot=box2_iee_simG25_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_iee_simG25_BothDec.pdf"),plot=box2_iee_simG25_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_iee_simG25_BothDec.pdf"),plot=box2_iee_simG25_BothDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_simG25_BothDec.pdf"),plot=box2_wee_simG25_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_wee_simG25_BothDec.pdf"),plot=box2_wee_simG25_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_wee_simG25_BothDec.pdf"),plot=box2_wee_simG25_BothDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_mm_simG25_BothDec.pdf"),plot=box2_mm_simG25_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_mm_simG25_BothDec.pdf"),plot=box2_mm_simG25_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_mm_simG25_BothDec.pdf"),plot=box2_mm_simG25_BothDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_simG25_BothDec.pdf"),plot=box2_jmm_simG25_BothDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_jmm_simG25_BothDec.pdf"),plot=box2_jmm_simG25_BothDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_jmm_simG25_BothDec.pdf"),plot=box2_jmm_simG25_BothDec$B2,width=4,height=4)
+
+ggsave(filename=paste0(outpath,"revisionB0box_gee_simG25_BothInc.pdf"),plot=box2_gee_simG25_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_gee_simG25_BothInc.pdf"),plot=box2_gee_simG25_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_gee_simG25_BothInc.pdf"),plot=box2_gee_simG25_BothInc$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_iee_simG25_BothInc.pdf"),plot=box2_iee_simG25_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_iee_simG25_BothInc.pdf"),plot=box2_iee_simG25_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_iee_simG25_BothInc.pdf"),plot=box2_iee_simG25_BothInc$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_simG25_BothInc.pdf"),plot=box2_wee_simG25_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_wee_simG25_BothInc.pdf"),plot=box2_wee_simG25_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_wee_simG25_BothInc.pdf"),plot=box2_wee_simG25_BothInc$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_mm_simG25_BothInc.pdf"),plot=box2_mm_simG25_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_mm_simG25_BothInc.pdf"),plot=box2_mm_simG25_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_mm_simG25_BothInc.pdf"),plot=box2_mm_simG25_BothInc$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_simG25_BothInc.pdf"),plot=box2_jmm_simG25_BothInc$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_jmm_simG25_BothInc.pdf"),plot=box2_jmm_simG25_BothInc$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_jmm_simG25_BothInc.pdf"),plot=box2_jmm_simG25_BothInc$B2,width=4,height=4)
+
+ggsave(filename=paste0(outpath,"revisionB0box_gee_simG25_SensDec.pdf"),plot=box2_gee_simG25_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_gee_simG25_SensDec.pdf"),plot=box2_gee_simG25_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_gee_simG25_SensDec.pdf"),plot=box2_gee_simG25_SensDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_iee_simG25_SensDec.pdf"),plot=box2_iee_simG25_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_iee_simG25_SensDec.pdf"),plot=box2_iee_simG25_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_iee_simG25_SensDec.pdf"),plot=box2_iee_simG25_SensDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_simG25_SensDec.pdf"),plot=box2_wee_simG25_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_wee_simG25_SensDec.pdf"),plot=box2_wee_simG25_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_wee_simG25_SensDec.pdf"),plot=box2_wee_simG25_SensDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_mm_simG25_SensDec.pdf"),plot=box2_mm_simG25_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_mm_simG25_SensDec.pdf"),plot=box2_mm_simG25_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_mm_simG25_SensDec.pdf"),plot=box2_mm_simG25_SensDec$B2,width=4,height=4)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_simG25_SensDec.pdf"),plot=box2_jmm_simG25_SensDec$B0,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB1box_jmm_simG25_SensDec.pdf"),plot=box2_jmm_simG25_SensDec$B1,width=4,height=4);ggsave(filename=paste0(outpath,"revisionB2box_jmm_simG25_SensDec.pdf"),plot=box2_jmm_simG25_SensDec$B2,width=4,height=4)
+
 
 ## 1x6 boxplots
 B0box_iee <- arrangeGrob(box_iee_simG0_Fixed$B0, box_iee_simGN25_Fixed$B0, box_iee_simG25_Fixed$B0, box_iee_simG0_BothDec$B0, box_iee_simGN25_BothDec$B0, box_iee_simG25_BothDec$B0,nrow=2,ncol=3)
@@ -992,7 +1373,6 @@ ggsave(filename=paste0(outpath,"B0box_jmm.pdf"),plot=B0box_jmm,width=8,height=6)
 ggsave(filename=paste0(outpath,"B1box_jmm.pdf"),plot=B1box_jmm,width=8,height=6)
 ggsave(filename=paste0(outpath,"B2box_jmm.pdf"),plot=B2box_jmm,width=8,height=6)
 
-
 ## 3x3 plot
 B0box_wee <- arrangeGrob(box_wee_simG0_Fixed$B0, box_wee_simGN25_Fixed$B0, box_wee_simG25_Fixed$B0, box_wee_simG0_BothDec$B0, box_wee_simGN25_BothDec$B0, box_wee_simG25_BothDec$B0, box_wee_simG0_BothInc$B0, box_wee_simGN25_BothInc$B0, box_wee_simG25_BothInc$B0,nrow=3,ncol=3)
 B1box_wee <- arrangeGrob(box_wee_simG0_Fixed$B1, box_wee_simGN25_Fixed$B1, box_wee_simG25_Fixed$B1, box_wee_simG0_BothDec$B1, box_wee_simGN25_BothDec$B1, box_wee_simG25_BothDec$B1, box_wee_simG0_BothInc$B1, box_wee_simGN25_BothInc$B1, box_wee_simG25_BothInc$B1,nrow=3,ncol=3)
@@ -1008,6 +1388,52 @@ B2box_jmm <- arrangeGrob(box_jmm_simG0_Fixed$B2, box_jmm_simGN25_Fixed$B2, box_j
 ggsave(filename=paste0(outpath,"B0box_jmm_3by3.pdf"),plot=B0box_jmm,width=8,height=9)
 ggsave(filename=paste0(outpath,"B1box_jmm_3by3.pdf"),plot=B1box_jmm,width=8,height=9)
 ggsave(filename=paste0(outpath,"B2box_jmm_3by3.pdf"),plot=B2box_jmm,width=8,height=9)
+
+## revisions sim: small sample size (10%)
+B0box2_iee <- arrangeGrob(box2_iee_simG0_Fixed$B0, box2_iee_simGN25_Fixed$B0, box2_iee_simG25_Fixed$B0, box2_iee_simG0_BothDec$B0, box2_iee_simGN25_BothDec$B0, box2_iee_simG25_BothDec$B0,nrow=2,ncol=3)
+B1box2_iee <- arrangeGrob(box2_iee_simG0_Fixed$B1, box2_iee_simGN25_Fixed$B1, box2_iee_simG25_Fixed$B1, box2_iee_simG0_BothDec$B1, box2_iee_simGN25_BothDec$B1, box2_iee_simG25_BothDec$B1,nrow=2,ncol=3)
+B2box2_iee <- arrangeGrob(box2_iee_simG0_Fixed$B2, box2_iee_simGN25_Fixed$B2, box2_iee_simG25_Fixed$B2, box2_iee_simG0_BothDec$B2, box2_iee_simGN25_BothDec$B2, box2_iee_simG25_BothDec$B2,nrow=2,ncol=3)
+ggsave(filename=paste0(outpath,"revisionB0box_iee.pdf"),plot=B0box2_iee,width=8,height=6)
+ggsave(filename=paste0(outpath,"revisionB1box_iee.pdf"),plot=B1box2_iee,width=8,height=6)
+ggsave(filename=paste0(outpath,"revisionB2box_iee.pdf"),plot=B2box2_iee,width=8,height=6)
+
+B0box2_wee <- arrangeGrob(box2_wee_simG0_Fixed$B0, box2_wee_simGN25_Fixed$B0, box2_wee_simG25_Fixed$B0, box2_wee_simG0_BothDec$B0, box2_wee_simGN25_BothDec$B0, box2_wee_simG25_BothDec$B0,nrow=2,ncol=3)
+B1box2_wee <- arrangeGrob(box2_wee_simG0_Fixed$B1, box2_wee_simGN25_Fixed$B1, box2_wee_simG25_Fixed$B1, box2_wee_simG0_BothDec$B1, box2_wee_simGN25_BothDec$B1, box2_wee_simG25_BothDec$B1,nrow=2,ncol=3)
+B2box2_wee <- arrangeGrob(box2_wee_simG0_Fixed$B2, box2_wee_simGN25_Fixed$B2, box2_wee_simG25_Fixed$B2, box2_wee_simG0_BothDec$B2, box2_wee_simGN25_BothDec$B2, box2_wee_simG25_BothDec$B2,nrow=2,ncol=3)
+ggsave(filename=paste0(outpath,"revisionB0box_wee.pdf"),plot=B0box2_wee,width=8,height=6)
+ggsave(filename=paste0(outpath,"revisionB1box_wee.pdf"),plot=B1box2_wee,width=8,height=6)
+ggsave(filename=paste0(outpath,"revisionB2box_wee.pdf"),plot=B2box2_wee,width=8,height=6)
+
+B0box2_mm <- arrangeGrob(box2_mm_simG0_Fixed$B0, box2_mm_simGN25_Fixed$B0, box2_mm_simG25_Fixed$B0, box2_mm_simG0_BothDec$B0, box2_mm_simGN25_BothDec$B0, box2_mm_simG25_BothDec$B0,nrow=2,ncol=3)
+B1box2_mm <- arrangeGrob(box2_mm_simG0_Fixed$B1, box2_mm_simGN25_Fixed$B1, box2_mm_simG25_Fixed$B1, box2_mm_simG0_BothDec$B1, box2_mm_simGN25_BothDec$B1, box2_mm_simG25_BothDec$B1,nrow=2,ncol=3)
+B2box2_mm <- arrangeGrob(box2_mm_simG0_Fixed$B2, box2_mm_simGN25_Fixed$B2, box2_mm_simG25_Fixed$B2, box2_mm_simG0_BothDec$B2, box2_mm_simGN25_BothDec$B2, box2_mm_simG25_BothDec$B2,nrow=2,ncol=3)
+ggsave(filename=paste0(outpath,"revisionB0box_mm.pdf"),plot=B0box2_mm,width=8,height=6)
+ggsave(filename=paste0(outpath,"revisionB1box_mm.pdf"),plot=B1box2_mm,width=8,height=6)
+ggsave(filename=paste0(outpath,"revisionB2box_mm.pdf"),plot=B2box2_mm,width=8,height=6)
+
+B0box2_jmm <- arrangeGrob(box2_jmm_simG0_Fixed$B0, box2_jmm_simGN25_Fixed$B0, box2_jmm_simG25_Fixed$B0, box2_jmm_simG0_BothDec$B0, box2_jmm_simGN25_BothDec$B0, box2_jmm_simG25_BothDec$B0,nrow=2,ncol=3)
+B1box2_jmm <- arrangeGrob(box2_jmm_simG0_Fixed$B1, box2_jmm_simGN25_Fixed$B1, box2_jmm_simG25_Fixed$B1, box2_jmm_simG0_BothDec$B1, box2_jmm_simGN25_BothDec$B1, box2_jmm_simG25_BothDec$B1,nrow=2,ncol=3)
+B2box2_jmm <- arrangeGrob(box2_jmm_simG0_Fixed$B2, box2_jmm_simGN25_Fixed$B2, box2_jmm_simG25_Fixed$B2, box2_jmm_simG0_BothDec$B2, box2_jmm_simGN25_BothDec$B2, box2_jmm_simG25_BothDec$B2,nrow=2,ncol=3)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm.pdf"),plot=B0box2_jmm,width=8,height=6)
+ggsave(filename=paste0(outpath,"revisionB1box_jmm.pdf"),plot=B1box2_jmm,width=8,height=6)
+ggsave(filename=paste0(outpath,"revisionB2box_jmm.pdf"),plot=B2box2_jmm,width=8,height=6)
+
+
+## 3x3 plot
+B0box2_wee <- arrangeGrob(box2_wee_simG0_Fixed$B0, box2_wee_simGN25_Fixed$B0, box2_wee_simG25_Fixed$B0, box2_wee_simG0_BothDec$B0, box2_wee_simGN25_BothDec$B0, box2_wee_simG25_BothDec$B0, box2_wee_simG0_BothInc$B0, box2_wee_simGN25_BothInc$B0, box2_wee_simG25_BothInc$B0,nrow=3,ncol=3)
+B1box2_wee <- arrangeGrob(box2_wee_simG0_Fixed$B1, box2_wee_simGN25_Fixed$B1, box2_wee_simG25_Fixed$B1, box2_wee_simG0_BothDec$B1, box2_wee_simGN25_BothDec$B1, box2_wee_simG25_BothDec$B1, box2_wee_simG0_BothInc$B1, box2_wee_simGN25_BothInc$B1, box2_wee_simG25_BothInc$B1,nrow=3,ncol=3)
+B2box2_wee <- arrangeGrob(box2_wee_simG0_Fixed$B2, box2_wee_simGN25_Fixed$B2, box2_wee_simG25_Fixed$B2, box2_wee_simG0_BothDec$B2, box2_wee_simGN25_BothDec$B2, box2_wee_simG25_BothDec$B2, box2_wee_simG0_BothInc$B2, box2_wee_simGN25_BothInc$B2, box2_wee_simG25_BothInc$B2,nrow=3,ncol=3)
+ggsave(filename=paste0(outpath,"revisionB0box_wee_3by3.pdf"),plot=B0box2_wee,width=8,height=9)
+ggsave(filename=paste0(outpath,"revisionB1box_wee_3by3.pdf"),plot=B1box2_wee,width=8,height=9)
+ggsave(filename=paste0(outpath,"revisionB2box_wee_3by3.pdf"),plot=B2box2_wee,width=8,height=9)
+
+## 3x3 plot
+B0box2_jmm <- arrangeGrob(box2_jmm_simG0_Fixed$B0, box2_jmm_simGN25_Fixed$B0, box2_jmm_simG25_Fixed$B0, box2_jmm_simG0_BothDec$B0, box2_jmm_simGN25_BothDec$B0, box2_jmm_simG25_BothDec$B0, box2_jmm_simG0_BothInc$B0, box2_jmm_simGN25_BothInc$B0, box2_jmm_simG25_BothInc$B0,nrow=3,ncol=3)
+B1box2_jmm <- arrangeGrob(box2_jmm_simG0_Fixed$B1, box2_jmm_simGN25_Fixed$B1, box2_jmm_simG25_Fixed$B1, box2_jmm_simG0_BothDec$B1, box2_jmm_simGN25_BothDec$B1, box2_jmm_simG25_BothDec$B1, box2_jmm_simG0_BothInc$B1, box2_jmm_simGN25_BothInc$B1, box2_jmm_simG25_BothInc$B1,nrow=3,ncol=3)
+B2box2_jmm <- arrangeGrob(box2_jmm_simG0_Fixed$B2, box2_jmm_simGN25_Fixed$B2, box2_jmm_simG25_Fixed$B2, box2_jmm_simG0_BothDec$B2, box2_jmm_simGN25_BothDec$B2, box2_jmm_simG25_BothDec$B2, box2_jmm_simG0_BothInc$B2, box2_jmm_simGN25_BothInc$B2, box2_jmm_simG25_BothInc$B2,nrow=3,ncol=3)
+ggsave(filename=paste0(outpath,"revisionB0box_jmm_3by3.pdf"),plot=B0box2_jmm,width=8,height=9)
+ggsave(filename=paste0(outpath,"revisionB1box_jmm_3by3.pdf"),plot=B1box2_jmm,width=8,height=9)
+ggsave(filename=paste0(outpath,"revisionB2box_jmm_3by3.pdf"),plot=B2box2_jmm,width=8,height=9)
 
 
 bias_box <- function(df,caption=""){
@@ -1087,7 +1513,12 @@ biasbox_simGN25_BothDec <- bias_box(res_simGN25_BothDec,caption="")
 biasbox_simG25_Fixed <- bias_box(res_simG25_Fixed,caption="")
 biasbox_simG25_BothDec <- bias_box(res_simG25_BothDec,caption="")
 
-
+biasbox2_simG0_Fixed <- bias_box(res2_simG0_Fixed,caption="")
+biasbox2_simG0_BothDec <- bias_box(res2_simG0_BothDec,caption="")
+biasbox2_simGN25_Fixed <- bias_box(res2_simGN25_Fixed,caption="")
+biasbox2_simGN25_BothDec <- bias_box(res2_simGN25_BothDec,caption="")
+biasbox2_simG25_Fixed <- bias_box(res2_simG25_Fixed,caption="")
+biasbox2_simG25_BothDec <- bias_box(res2_simG25_BothDec,caption="")
 
 
 
