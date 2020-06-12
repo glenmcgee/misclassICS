@@ -6,6 +6,9 @@ Code to reproduce methodology and simulations from "On the Interplay Between Exp
 #### sim1_2019.R,...sim12_2019.R
 Run main simulations in each of 12 scenarios. In simulations 1 to 4, gamma=0; in simulations 5 to 8, gamma=-0.25; in simulations 9 to 12, gamma=0.25.In simulations 1,5, and 9, sensitivity and specificity are fixed with respect to cluster size; in simulations 2,6, and 10, sensitivity and specificity decrease in cluster size; in simulations 3,7, and 11, sensitivity and specificity increase in cluster size; in simulations 4,8, and 12, only sensitivity decreases in cluster size.
 
+#### sim1_small.R,...sim12_small.R
+Run same simulations in each of 12 scenarios, with reduced sample size for validation set: 10%.
+
 #### sim1INDUCED_2019.R,...,sim3INDUCED_2019.R
 Run simulations to show induced informativeness. In each, gamma=0, alpha_1=-1 and \beta_1=1. Sensitivity/specificity are fixed, decrease, and increase with respect to cluster size in simulations 1,2 and 3, respectively.
 
